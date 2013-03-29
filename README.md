@@ -32,3 +32,5 @@ When you download or clone, move the code into a directory you can run apache fr
 Licensing
 ------
 Code is licensed under the MIT License.
+
+PS: Don´t forget to star this repo :)
