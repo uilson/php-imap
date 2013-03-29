@@ -109,7 +109,7 @@ if(isset($_SESSION['ImapLogin'])){
                 <ul>';
             
             foreach($email['attachments'] as $i){
-                $attachments.= '<li><a href="?mailbox='.urlencode($_GET['mailbox']).'&msgno='.trim($_GET['msgno']).'&part=2&name='.$i['name'].'" target="_blank">'.$i['name'].' ('.round(1024/$i['bytes'],1).' KB)</a></li>';
+                $attachments.= '<li><a href="?mailbox='.urlencode($_GET['mailbox']).'&msgno='.trim($_GET['msgno']).'&part=2&name='.$i['name'].'" target="_blank">'.$i['name'].' ('.round($i['bytes']/1024,1).' KB)</a></li>';
             }
             
             $attachments.= '</ul>';
@@ -119,10 +119,10 @@ if(isset($_SESSION['ImapLogin'])){
                 <h3>'.$email['header']['subject'].'</h3>
                 Date: '.$email['header']['date'].'<br/>
                 From: '.$email['header']['from'].'<br/>
-                Size: '.round(1024/$email['header']['size'],1).' KB<br/>
+                Size: '.round($email['header']['size']/1024,1).' KB<br/>
                 <hr/>
                 <h4>Body</h4>
-                '.base64_decode($email['html']).$attachments.'
+                '.quoted_printable_decode($email['html']).$attachments.'
             </div>';
     }
     
@@ -138,7 +138,7 @@ if(isset($_SESSION['ImapLogin'])){
                         <a href="?mailbox='.urlencode($_GET['mailbox']).'&msgno='.trim($i['msgno']).'" class="'.((strtoupper($i['status']) != 'READ') ?'bold':'').'">'.$i['subject'].'</a> ('.$i['status'].')<br/>
                         Date: '.$i['date'].'<br/>
                         From: '.$i['from'].'<br/>
-                        Size: '.round(1024/$i['size'],1).' KB<br/>
+                        Size: '.round($i['size']/1024,1).' KB<br/>
                     </li>';
             }
             echo '</ul>';
